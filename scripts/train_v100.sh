@@ -12,9 +12,9 @@ module load cuda/12.6.2
 # module load python3/3.10.4
 
 nvidia-smi >> gpu-info-v100.txt
-source /scratch/rp06/sl5952/IHA-and-BMCN/.venv/bin/activate
+source /scratch/rp06/sl5952/WallyCL/.venv/bin/activate
 
 cd ..
-# Run training with IHA and BMCN models
-python train.py --config configs/P5.yaml >> out_train_v100.txt
+# Run training with WallyCL models
+python train.py >> out_train_v100.txt
 
