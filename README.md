@@ -206,7 +206,7 @@ total_loss = (odd_loss +
               lambda_ce * classification_loss)
 ```
 
-## Citation
+<!-- ## Citation
 
 If you use this code in your research, please cite:
 
@@ -217,7 +217,7 @@ If you use this code in your research, please cite:
   journal={Conference/Journal},
   year={2024}
 }
-```
+``` -->
 
 ## License
 
