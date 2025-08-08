@@ -1,0 +1,74 @@
+# WallyCL Default Configuration
+
+model:
+  backbone: "vit_base_patch16_224"  # Options: vit_base_patch16_224, swin_base_patch4_window7_224
+  embed_dim: 128
+  hidden_dim: 512
+  k_tokens: 8  # Number of tokens to select
+  tau_gumbel: 1.0  # Gumbel temperature
+  pretrained: true
+
+data:
+  dataset_name: "cotton80"  # Options: cotton80, soybean, soy_ageing_r1, etc.
+  data_root: "./data"
+  input_size: 224
+  num_classes: 80  # Will be updated automatically after dataset loading
+  group_size: 3  # K = m + 1 (reduced for cotton80 dataset)
+  m: 2  # Number of positives per group (reduced for cotton80 dataset)
+  groups_per_batch: 4  # Number of groups per batch
+  val_batch_size: 32
+  num_workers: 4
+  train_transform: "train_medium"  # Options: train_weak, train_medium, train_strong
+
+loss:
+  lambda_sup: 0.0   # 先設為0，逐步增加
+  lambda_tok: 0.0   # 先設為0，逐步增加
+  lambda_ce: 1.0    # 只用分類loss開始
+  tau_sup: 0.1      # SupCon temperature
+  tau_tok: 0.07     # Token contrastive temperature
+  alpha: 5.0        # Odd-one-out scaling factor
+  distance_type: "cosine"  # Options: cosine, euclidean
+
+optimizer:
+  lr: 5.0e-4        # 提高學習率
+  weight_decay: 0.01  # 降低weight decay
+
+training:
+  epochs: 3          # 暫時設為3用於測試
+  use_ema: true
+  ema_decay: 0.999
+  save_dir: "./checkpoints"
+  max_checkpoints: 5
+  warmup_epochs: 1   # 降低warmup
+
+# Experiment specific overrides
+experiments:
+  cotton80:
+    data:
+      dataset_name: "cotton80"
+      num_classes: 80
+      group_size: 3  # K = m + 1 (cotton80 has 3 samples per class)
+      m: 2  # Number of positives per group
+    training:
+      epochs: 150
+  
+  soybean:
+    data:
+      dataset_name: "soybean"
+      num_classes: 200
+      group_size: 5  # K = m + 1 (soybean has more samples per class)
+      m: 4  # Number of positives per group
+    training:
+      epochs: 120
+  
+  ablation_no_token:
+    loss:
+      lambda_tok: 0.0  # Disable token contrastive loss
+  
+  ablation_no_supcon:
+    loss:
+      lambda_sup: 0.0  # Disable supervised contrastive loss
+  
+  strong_augmentation:
+    data:
+      train_transform: "train_strong"
