@@ -16,4 +16,4 @@ source /scratch/rp06/sl5952/WallyCL/.venv/bin/activate
 
 cd ..
 # Run training with WallyCL models
-python train.py >> out_train_a100.txt
+python3 train.py --dataset cotton80 >> out_train_a100.txt
