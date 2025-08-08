@@ -1,7 +1,7 @@
 # WallyCL Default Configuration
 
 model:
-  backbone: "vit_base_patch16_224"  # Options: vit_base_patch16_224, swin_base_patch4_window7_224
+  backbone: "vit_base_patch16_224.augreg2_in21k_ft_in1k"  # Options: vit_base_patch16_224, swin_base_patch4_window7_224
   embed_dim: 128
   hidden_dim: 512
   k_tokens: 8  # Number of tokens to select
