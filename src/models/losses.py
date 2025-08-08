@@ -153,6 +153,7 @@ class WallyClLoss(nn.Module):
                  lambda_sup: float = 1.0,
                  lambda_tok: float = 0.5,
                  lambda_ce: float = 1.0,
+                 lambda_odd: float = 1.0,
                  tau_sup: float = 0.1,
                  tau_tok: float = 0.07,
                  alpha: float = 5.0,
@@ -162,6 +163,7 @@ class WallyClLoss(nn.Module):
         self.lambda_sup = lambda_sup
         self.lambda_tok = lambda_tok
         self.lambda_ce = lambda_ce
+        self.lambda_odd = lambda_odd
         
         self.odd_loss = OddOneOutLoss(alpha=alpha, distance_type=distance_type)
         self.supcon_loss = GroupSupConLoss(tau=tau_sup)
@@ -221,7 +223,7 @@ class WallyClLoss(nn.Module):
         losses['ce'] = self.ce_loss(cls_logits, cls_labels)
         
         # Total loss
-        total_loss = (losses['odd'] + 
+        total_loss = (self.lambda_odd * losses['odd'] + 
                      self.lambda_sup * losses['supcon'] + 
                      self.lambda_tok * losses['tokcon'] + 
                      self.lambda_ce * losses['ce'])

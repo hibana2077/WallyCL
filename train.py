@@ -53,6 +53,7 @@ class WallyClTrainer:
             lambda_sup=config['loss']['lambda_sup'],
             lambda_tok=config['loss']['lambda_tok'],
             lambda_ce=config['loss']['lambda_ce'],
+            lambda_odd=config['loss']['lambda_odd'],
             tau_sup=config['loss']['tau_sup'],
             tau_tok=config['loss']['tau_tok'],
             alpha=config['loss']['alpha'],

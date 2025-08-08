@@ -24,6 +24,7 @@ loss:
   lambda_sup: 0.0   # 先設為0，逐步增加
   lambda_tok: 0.0   # 先設為0，逐步增加
   lambda_ce: 1.0    # 只用分類loss開始
+  lambda_odd: 1.0   # Odd-one-out loss weight
   tau_sup: 0.1      # SupCon temperature
   tau_tok: 0.07     # Token contrastive temperature
   alpha: 5.0        # Odd-one-out scaling factor
@@ -68,6 +69,10 @@ experiments:
   ablation_no_supcon:
     loss:
       lambda_sup: 0.0  # Disable supervised contrastive loss
+  
+  ablation_no_odd:
+    loss:
+      lambda_odd: 0.0  # Disable odd-one-out loss
   
   strong_augmentation:
     data:
