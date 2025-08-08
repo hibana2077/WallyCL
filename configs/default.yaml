@@ -34,7 +34,7 @@ optimizer:
   weight_decay: 0.01  # 降低weight decay
 
 training:
-  epochs: 3          # 暫時設為3用於測試
+  epochs: 50          # 暫時設為3用於測試
   use_ema: true
   ema_decay: 0.999
   save_dir: "./checkpoints"
